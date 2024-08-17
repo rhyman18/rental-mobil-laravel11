@@ -19,6 +19,9 @@ const user = usePage().props.auth.user;
 const form = useForm({
     name: user.name,
     email: user.email,
+    address: user.address || '', // Add address field
+    phone_number: user.phone_number || '', // Add phone number field
+    driver_license: user.driver_license || '', // Add driver's license field
 });
 </script>
 
@@ -28,7 +31,7 @@ const form = useForm({
             <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">Profile Information</h2>
 
             <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                Update your account's profile information and email address.
+                Update your account's profile information, email address, and contact details.
             </p>
         </header>
 
@@ -62,6 +65,54 @@ const form = useForm({
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
+            </div>
+
+            <!-- Address -->
+            <div>
+                <InputLabel for="address" value="Address" />
+
+                <TextInput
+                    id="address"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.address"
+                    required
+                    autocomplete="address"
+                />
+
+                <InputError class="mt-2" :message="form.errors.address" />
+            </div>
+
+            <!-- Phone Number -->
+            <div>
+                <InputLabel for="phone_number" value="Phone Number" />
+
+                <TextInput
+                    id="phone_number"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.phone_number"
+                    required
+                    autocomplete="tel"
+                />
+
+                <InputError class="mt-2" :message="form.errors.phone_number" />
+            </div>
+
+            <!-- Driver's License -->
+            <div>
+                <InputLabel for="driver_license" value="Driver's License" />
+
+                <TextInput
+                    id="driver_license"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.driver_license"
+                    required
+                    autocomplete="off"
+                />
+
+                <InputError class="mt-2" :message="form.errors.driver_license" />
             </div>
 
             <div v-if="mustVerifyEmail && user.email_verified_at === null">

@@ -11,6 +11,9 @@ const form = useForm({
     email: '',
     password: '',
     password_confirmation: '',
+    address: '',
+    phone_number: '',
+    driver_license: '',
 });
 
 const submit = () => {
@@ -54,6 +57,48 @@ const submit = () => {
                 />
 
                 <InputError class="mt-2" :message="form.errors.email" />
+            </div>
+
+            <!-- Address -->
+            <div class="mt-4">
+                <InputLabel for="address" value="Address" />
+                <TextInput
+                    id="address"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.address"
+                    required
+                    autocomplete="street-address"
+                />
+                <InputError class="mt-2" :message="form.errors.address" />
+            </div>
+
+            <!-- Phone Number -->
+            <div class="mt-4">
+                <InputLabel for="phone_number" value="Phone Number" />
+                <TextInput
+                    id="phone_number"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.phone_number"
+                    required
+                    autocomplete="tel"
+                />
+                <InputError class="mt-2" :message="form.errors.phone_number" />
+            </div>
+
+            <!-- Driver License -->
+            <div class="mt-4">
+                <InputLabel for="driver_license" value="Driver License" />
+                <TextInput
+                    id="driver_license"
+                    type="text"
+                    class="mt-1 block w-full"
+                    v-model="form.driver_license"
+                    required
+                    autocomplete="license"
+                />
+                <InputError class="mt-2" :message="form.errors.driver_license" />
             </div>
 
             <div class="mt-4">
