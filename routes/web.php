@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\RentalController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,9 +28,7 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', [Controller::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -38,6 +38,10 @@ Route::middleware('auth')->group(function () {
     Route::get('cars', [CarController::class, 'index'])->name('cars.index');
     Route::get('cars/create', [CarController::class, 'create'])->name('cars.create');
     Route::post('cars/create', [CarController::class, 'store'])->name('cars.store');
+
+    Route::get('rent/create', [RentalController::class, 'create'])->name('rent.create');
+    Route::post('rent/create', [RentalController::class, 'store'])->name('rent.store');
+    Route::get('rent/available', [RentalController::class, 'fetchAvailableCars'])->name('rent.available');
 });
 
 require __DIR__.'/auth.php';

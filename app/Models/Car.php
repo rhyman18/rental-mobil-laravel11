@@ -19,5 +19,16 @@ class Car extends Model
         'model',
         'license_plate',
         'daily_rate',
+        'available',
     ];
+
+    public function rentals()
+    {
+        return $this->hasMany(Rental::class);
+    }
+
+    public function getAvailableAttribute()
+    {
+        return $this->attributes['available'] ? 'Tersedia' : 'Disewa';
+    }
 }

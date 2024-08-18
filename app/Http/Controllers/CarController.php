@@ -11,7 +11,6 @@ class CarController extends Controller
     public function index()
     {
         $cars = Car::all()->map(function ($car) {
-            $car->available = $car->available == 1 ? 'Tersedia' : 'Disewa';
             $car->daily_rate = 'Rp. ' . number_format($car->daily_rate, 0, ',', '.');
             return $car;
         });
