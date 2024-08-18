@@ -265,7 +265,7 @@ onMounted(() => {
                                     </div>
                                     <div>
                                         <InputLabel
-                                            for="total_cost"
+                                            for="final_cost"
                                             value="Total Cost"
                                         />
                                         <p

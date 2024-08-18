@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CarReturn;
 use App\Models\Rental;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -16,16 +17,17 @@ class Controller extends BaseController
     {
         $userId = auth()->id();
 
-        // Fetch rentals with related car information
-        $rentals = Rental::with('car') // Eager load the car relationship
+        $rentals = Rental::with('car')
             ->where('user_id', $userId)
-            ->get()->map(function ($rental) {
-                $rental->car->daily_rate = 'Rp. ' . number_format($rental->car->daily_rate, 0, ',', '.');
-                $rental->estimated_cost = 'Rp. ' . number_format($rental->estimated_cost, 0, ',', '.');
-                return $rental;
-            });
+            ->where('is_returned', false)
+            ->get();
 
-        // Return the data to the Inertia view
-        return Inertia::render('Dashboard', ['rentals' => $rentals]);
+        $carReturn = CarReturn::whereHas('rental', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })
+            ->with(['rental.car'])
+            ->get();
+
+        return Inertia::render('Dashboard', ['rentals' => $rentals, 'carReturn' => $carReturn]);
     }
 }

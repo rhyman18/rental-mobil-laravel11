@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Car extends Model
+class CarReturn extends Model
 {
     use HasFactory;
 
@@ -15,20 +15,14 @@ class Car extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'brand',
-        'model',
-        'license_plate',
-        'daily_rate',
-        'available',
+        'rental_id',
+        'return_date',
+        'duration',
+        'final_cost'
     ];
 
     public function rental()
     {
-        return $this->hasMany(Rental::class);
-    }
-
-    public function getAvailableAttribute()
-    {
-        return $this->attributes['available'] ? 'Tersedia' : 'Disewa';
+        return $this->belongsTo(Rental::class);
     }
 }

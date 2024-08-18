@@ -46,7 +46,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function rentals()
+    public function rental()
     {
         return $this->hasMany(Rental::class);
     }

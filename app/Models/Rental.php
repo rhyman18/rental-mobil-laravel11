@@ -34,6 +34,11 @@ class Rental extends Model
         return $this->belongsTo(Car::class);
     }
 
+    public function carReturn()
+    {
+        return $this->hasOne(CarReturn::class);
+    }
+
     public function getIsReturnedAttribute()
     {
         return $this->attributes['is_returned'] ? 'Dikembalilkan' : 'Disewa';
