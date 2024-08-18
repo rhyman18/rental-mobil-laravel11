@@ -10,10 +10,7 @@ class CarController extends Controller
 {
     public function index()
     {
-        $cars = Car::all()->map(function ($car) {
-            $car->daily_rate = 'Rp. ' . number_format($car->daily_rate, 0, ',', '.');
-            return $car;
-        });
+        $cars = Car::all();
 
         return Inertia::render('Cars/Index', ['cars' => $cars]);
     }

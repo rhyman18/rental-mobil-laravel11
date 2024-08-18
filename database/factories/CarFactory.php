@@ -19,7 +19,7 @@ class CarFactory extends Factory
         return [
             'brand' => $this->faker->company,       // Random car brand
             'model' => $this->faker->word,          // Random car model
-            'license_plate' => strtoupper($this->faker->bothify('?? ### ??')), // Random license plate
+            'license_plate' => strtoupper($this->faker->bothify('?? #### ??')), // Random license plate
             'daily_rate' => $this->faker->numberBetween(30000, 120000), // Random rate between 100,000 and 500,000
             // 'available' => $this->faker->boolean,   // Randomly true (1) or false (0)
             'available' => 1

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CarReturnController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CarController;
@@ -42,6 +43,10 @@ Route::middleware('auth')->group(function () {
     Route::get('rent/create', [RentalController::class, 'create'])->name('rent.create');
     Route::post('rent/create', [RentalController::class, 'store'])->name('rent.store');
     Route::get('rent/available', [RentalController::class, 'fetchAvailableCars'])->name('rent.available');
+
+    Route::get('return/create', [CarReturnController::class, 'create'])->name('return.create');
+    Route::post('return/create', [CarReturnController::class, 'store'])->name('return.store');
+    Route::post('return/available', [CarReturnController::class, 'fetchRentals'])->name('return.available');
 });
 
 require __DIR__.'/auth.php';

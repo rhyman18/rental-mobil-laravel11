@@ -21,10 +21,11 @@ class RentalController extends Controller
         $endDate = $request->query('end_date');
 
         // Fetch cars that are available (not rented out during the selected dates)
-        $availableCars = Car::whereDoesntHave('rentals', function ($query) use ($startDate, $endDate) {
+        $availableCars = Car::whereDoesntHave('rental', function ($query) use ($startDate, $endDate) {
             $query->where(function ($query) use ($startDate, $endDate) {
                 $query->where('start_date', '<=', $endDate)
-                    ->where('end_date', '>=', $startDate);
+                    ->where('end_date', '>=', $startDate)
+                    ->where('is_returned', false);
             });
         })->get();
 

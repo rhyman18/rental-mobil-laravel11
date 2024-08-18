@@ -7,9 +7,12 @@ defineProps({
     rentals: {
         type: Array,
     },
+    carReturn: {
+        type: Array,
+    },
 });
 
-const columns = [
+const rentalColumns = [
     { data: "id" },
     { data: "car.brand" },
     { data: "car.model" },
@@ -19,6 +22,18 @@ const columns = [
     { data: "start_date" },
     { data: "end_date" },
     { data: "is_returned" },
+];
+
+const carReturnColumns = [
+    { data: "id" },
+    { data: "rental.car.brand" },
+    { data: "rental.car.model" },
+    { data: "rental.car.license_plate" },
+    { data: "rental.car.daily_rate" },
+    { data: "final_cost" },
+    { data: "rental.start_date" },
+    { data: "return_date" },
+    { data: "duration" },
 ];
 
 const options = {
@@ -34,7 +49,7 @@ const options = {
                             cascadePanes: true,
                             collapse: false,
                             threshold: 1,
-                            columns: [1, 2, 3, 8],
+                            columns: [1, 2, 3],
                         },
                     },
                 ],
@@ -157,7 +172,7 @@ const user = usePage().props.auth.user;
 
                     <DataTable
                         :data="rentals"
-                        :columns="columns"
+                        :columns="rentalColumns"
                         :options="options"
                         class="display"
                     >
@@ -172,6 +187,45 @@ const user = usePage().props.auth.user;
                                 <td>Start Date</td>
                                 <td>End Date</td>
                                 <td>Status</td>
+                            </tr>
+                        </thead>
+                    </DataTable>
+                </div>
+
+                <div
+                    class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg"
+                >
+                    <header>
+                        <h2
+                            class="text-lg font-medium text-gray-900 dark:text-gray-100"
+                        >
+                            Returned List
+                        </h2>
+
+                        <p
+                            class="mt-1 text-sm text-gray-600 dark:text-gray-400"
+                        >
+                            Browse through your returned rent cars.
+                        </p>
+                    </header>
+
+                    <DataTable
+                        :data="carReturn"
+                        :columns="carReturnColumns"
+                        :options="options"
+                        class="display"
+                    >
+                        <thead>
+                            <tr>
+                                <td class="w-16">ID</td>
+                                <td>Car Brand</td>
+                                <td>Car Model</td>
+                                <td>License Plate</td>
+                                <td>Daily Rate</td>
+                                <td>Final Cost</td>
+                                <td>Rent Date</td>
+                                <td>Return Date</td>
+                                <td>Duration Days</td>
                             </tr>
                         </thead>
                     </DataTable>
